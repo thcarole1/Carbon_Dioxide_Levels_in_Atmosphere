@@ -24,7 +24,6 @@ def predict_co2_level():
     window = 1 #Observation window
     feature = 1 #Number of features
     X_train_scaled, y_train_scaled, scaler = prepare_train_data(train, window)
-
     X_test_scaled, y_test_scaled, dates = prepare_test_data(test, window, scaler)
 
     # Let's save the fitted scaler
