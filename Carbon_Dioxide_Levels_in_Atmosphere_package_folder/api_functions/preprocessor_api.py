@@ -2,7 +2,7 @@
 import pandas as pd
 import math
 
-def manage_time_index(df)-> pd.DataFrame:
+def manage_time_index_api(df)-> pd.DataFrame:
     '''
     This function gets  adataframe as an input.
     Creates a datetime index and drop columns that are no longer useful.
@@ -18,7 +18,7 @@ def manage_time_index(df)-> pd.DataFrame:
     print("✅ Time index is set.")
     return df
 
-def drop_unsued_cols(df)-> pd.DataFrame:
+def drop_unsued_cols_api(df)-> pd.DataFrame:
     '''
     This function gets a pandas dataframe as input then drops unsused columns.
     It returns a Datatframe.
@@ -29,7 +29,7 @@ def drop_unsued_cols(df)-> pd.DataFrame:
     print("✅ Unused colums have been dropped.")
     return df
 
-def drop_time_series_duplicates(df:pd.DataFrame) -> pd.DataFrame:
+def drop_time_series_duplicates_api(df:pd.DataFrame) -> pd.DataFrame:
     '''
     This function gets a Pandas Dataframe as input, and drops duplicates rows if any.
     The index of the input dataframe is related to a date, or duration mark.
@@ -43,7 +43,7 @@ def drop_time_series_duplicates(df:pd.DataFrame) -> pd.DataFrame:
     print("✅ Duplicates have been dealt with.")
     return df
 
-def drop_head_missing_values(df:pd.DataFrame)-> pd.DataFrame:
+def drop_head_missing_values_api(df:pd.DataFrame)-> pd.DataFrame:
     '''
     This function gets a Pandas Dataframe as input. It drops all the
     missing values (i.e nan values) at the head of the dataframe, if any
@@ -56,7 +56,7 @@ def drop_head_missing_values(df:pd.DataFrame)-> pd.DataFrame:
     print("✅ Missing values dealt at the head.")
     return df
 
-def drop_tail_missing_values(df:pd.DataFrame)-> pd.DataFrame:
+def drop_tail_missing_values_api(df:pd.DataFrame)-> pd.DataFrame:
     '''
     This function gets a Pandas Dataframe as input. It drops all the missing
     values (i.e nan values) at the tail of the dataframe, if any
@@ -69,7 +69,7 @@ def drop_tail_missing_values(df:pd.DataFrame)-> pd.DataFrame:
     print("✅ Missing values dealt at the tail.")
     return df
 
-def interpolate(df:pd.DataFrame, method:str):
+def interpolate_api(df:pd.DataFrame, method:str):
     '''
     This function gets a Pandas Dataframe and a string as inputs.
     It interpolates the data points based on the specified method.
@@ -77,7 +77,7 @@ def interpolate(df:pd.DataFrame, method:str):
     print("✅ Intermediate missing values have been interpolated.")
     return df.interpolate(method)
 
-def preprocess_data(df:pd.DataFrame)-> pd.DataFrame:
+def preprocess_data_api(df:pd.DataFrame)-> pd.DataFrame:
     '''
     This function gets a Pandas Dataframe as input.
     Computes :
@@ -91,23 +91,23 @@ def preprocess_data(df:pd.DataFrame)-> pd.DataFrame:
     '''
 
     # Combine year and month into a new column as datetime
-    df = manage_time_index(df)
+    df = manage_time_index_api(df)
 
     # Drop unused columns
-    df = drop_unsued_cols(df)
+    df = drop_unsued_cols_api(df)
 
     # Get rid of duplicated rows if any
-    df = drop_time_series_duplicates(df)
+    df = drop_time_series_duplicates_api(df)
 
     # *** Get rid of missing values ***
     # Get rid of missing values at head
-    df = drop_head_missing_values(df)
+    df = drop_head_missing_values_api(df)
 
     # Get rid of missing values at tail
-    df = drop_tail_missing_values(df)
+    df = drop_tail_missing_values_api(df)
 
     # Interpolate intermediate missing values
-    df = interpolate(df, 'linear')
+    df = interpolate_api(df, 'linear')
 
     print("✅ Data has been preprocessed.")
     return df

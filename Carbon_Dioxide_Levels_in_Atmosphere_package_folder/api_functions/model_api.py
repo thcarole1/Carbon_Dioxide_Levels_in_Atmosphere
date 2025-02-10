@@ -19,7 +19,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error, r2_score
 from tensorflow.keras.metrics import RootMeanSquaredError, MeanAbsolutePercentageError
 
-def get_split_data(df:pd.DataFrame, train_size : float):
+def get_split_data_api(df:pd.DataFrame, train_size : float):
     '''
     This function gets a Pandas Dataframe and an float that represents
     the size of my train dataset relative to all the available data.
@@ -31,7 +31,7 @@ def get_split_data(df:pd.DataFrame, train_size : float):
     print("✅ data has been plit into train and test data.")
     return train, test
 
-def prepare_train_data(df, look_back=10):
+def prepare_train_data_api(df, look_back=10):
     '''
     Scales the train data, then create sequences of train data.
     Outputs : training data X, training target y and fitted scaler
@@ -46,7 +46,7 @@ def prepare_train_data(df, look_back=10):
     print("✅ Train data been prepared.")
     return np.array(X), np.array(y), scaler
 
-def prepare_test_data(df, look_back=10, scaler=None):
+def prepare_test_data_api(df, look_back=10, scaler=None):
     '''
     Scales the test data, then create sequences of test data.
     Outputs : test data X, test target y and associated dates
@@ -62,7 +62,15 @@ def prepare_test_data(df, look_back=10, scaler=None):
     print("✅ Test data been prepared.")
     return np.array(X), np.array(y), dates
 
-def define_LSTM_model(window, feature):
+def save_fitted_scaler_api(scaler):
+    '''
+    Saving the scaler fitted on train data (if new values, fit the scaler before using the LSTM model)
+    '''
+    path = "data/processed_data/my_final_scaler.pkl"
+    joblib.dump(scaler, path)
+    print("✅ Fitted scaler has been saved.")
+
+def define_LSTM_model_api(window, feature):
     '''
     Defines the structure of the deep learning model, then defines compilation parameters.
     Outputs LSTM model instance.
@@ -80,7 +88,7 @@ def define_LSTM_model(window, feature):
     print("✅ LSTM model created.")
     return model
 
-def train_lstm_model(model, X, y):
+def train_lstm_model_api(model, X, y):
     '''
     This function receives an LSTM model, X (scaled) and y(scaled),
     trains the model and returns the fitted model.
@@ -100,7 +108,7 @@ def train_lstm_model(model, X, y):
     print("✅ LSTM model fitted.")
     return model
 
-def save_fitted_model(fitted_model):
+def save_fitted_model_api(fitted_model):
     '''
     Saving the best fitted model
     '''
@@ -108,24 +116,16 @@ def save_fitted_model(fitted_model):
     joblib.dump(fitted_model, path)
     print("✅ LSTM  fitted model has been saved.")
 
-def save_fitted_scaler(scaler):
-    '''
-    Saving the scaler fitted on train data (if new values, fit the scaler before using the LSTM model)
-    '''
-    path = "data/processed_data/my_final_scaler.pkl"
-    joblib.dump(scaler, path)
-    print("✅ Fitted scaler has been saved.")
-
-def load_fitted_model(path_fitted_model):
-    '''
-    Reloading the best fitted model
-    '''
-    print("✅ LSTM  fitted model has been loaded.")
-    return joblib.load(path_fitted_model)
-
-def load_fitted_scaler(path_fitted_scaler):
+def load_fitted_scaler_api(path_fitted_scaler):
     '''
     Reloading the saved scaler
     '''
     print("✅ Fitted scaler has been loaded.")
     return joblib.load(path_fitted_scaler)
+
+def load_fitted_model_api(path_fitted_model):
+    '''
+    Reloading the best fitted model
+    '''
+    print("✅ LSTM  fitted model has been loaded.")
+    return joblib.load(path_fitted_model)
