@@ -27,8 +27,10 @@ These models are well-suited for datasets with clear temporal patterns and trend
 •	**Use Case**: Suitable for linear trends and seasonality in CO₂ emissions.<br><br>
 •	**Advantages**:
 - Good for stationary data.
-- Provides interpretable coefficients.<br>
-•	**Challenges**: May not handle complex patterns or external factors well.
+- Provides interpretable coefficients.
+
+•	**Challenges**:
+- May not handle complex patterns or external factors well.
 
 ### Deep Learning Models
 Deep learning methods are powerful for capturing complex patterns in large datasets.
