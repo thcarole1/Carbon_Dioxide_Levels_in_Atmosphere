@@ -88,7 +88,7 @@ $$MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 ### Mean Absolute Percentage Error (MAPE)
 •	**Description**: The average percentage error between actual and predicted values.<br><br>
 •	**Formula**: <br><br>
-$$MAPE=\frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100 $$
+\centerline{$$MAPE=\frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100 $$}
 
 •	**Use Case**:
 - Provides a percentage-based measure, making it scale-independent.
