@@ -38,7 +38,7 @@ Deep learning methods are powerful for capturing complex patterns in large datas
 •	**Advantages**:
 - Handles temporal dependencies well.
 - Works with non-linear trends.
-<br>
+
 •	**Challenges**:
 - Computationally intensive and requires large datasets.
 
