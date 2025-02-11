@@ -93,3 +93,8 @@ $$MAPE=\frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \ti
 •	**Use Case**:
 - Provides a percentage-based measure, making it scale-independent.
 - Becomes problematic when actual values are near zero (dividing by zero).
+
+
+##REMINDER: Forecast emissions trends to ensure compliance with future regulations.
+
+#Let's go !
