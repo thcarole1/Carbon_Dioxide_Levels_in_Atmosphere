@@ -37,8 +37,9 @@ Deep learning methods are powerful for capturing complex patterns in large datas
 •	**Use Case**: Predicts future CO₂ levels by learning long-term dependencies in emission trends.<br>
 •	**Advantages**:
 - Handles temporal dependencies well.
-- Works with non-linear trends.<br>
-•	**Challenges**: Computationally intensive and requires large datasets.
+- Works with non-linear trends.
+•	**Challenges**:
+- Computationally intensive and requires large datasets.
 
 ### What is the type of learning ?
 With the gathered information, we are ready to design our system.<br>
