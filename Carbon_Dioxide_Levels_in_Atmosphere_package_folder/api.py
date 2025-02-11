@@ -142,7 +142,9 @@ async def create_upload_file(file: UploadFile):
                         filename="co2_levels_prediction_data.zip")
 
 @app.post("/predict_csv")
-async def predict(csv_data: str = Query(..., description="URL-encoded CSV content")):
+async def predict(csv_data: str):
+    # async def predict(csv_data: str = Query(..., description="URL-encoded CSV content")):
+
     # URL-decode the incoming CSV content
     decoded_csv = urllib.parse.unquote(csv_data)
 
