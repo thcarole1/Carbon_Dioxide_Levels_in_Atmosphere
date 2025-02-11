@@ -27,7 +27,7 @@ These models are well-suited for datasets with clear temporal patterns and trend
 •	**Use Case**: Suitable for linear trends and seasonality in CO₂ emissions.<br><br>
 •	**Advantages**:
 - Good for stationary data.
-- Provides interpretable coefficients.
+- Provides interpretable coefficients.<br>
 •	**Challenges**: May not handle complex patterns or external factors well.
 
 #### Deep Learning Models
@@ -37,7 +37,7 @@ Deep learning methods are powerful for capturing complex patterns in large datas
 •	**Use Case**: Predicts future CO₂ levels by learning long-term dependencies in emission trends.<br>
 •	**Advantages**:
 - Handles temporal dependencies well.
-- Works with non-linear trends.
+- Works with non-linear trends.<br>
 •	**Challenges**: Computationally intensive and requires large datasets.
 
 ### What is the type of learning ?
