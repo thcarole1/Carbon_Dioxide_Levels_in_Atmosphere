@@ -20,9 +20,9 @@ Predicting carbon dioxide (CO₂) levels is a critical task for environmental mo
 Based on the data at hand, which likely includes historical CO₂ emissions and time, several existing solutions and approaches can be applied to predict CO₂ levels. <br><br>
 Here’s an overview:
 
-#### Statistical and Classical Time Series Models
+### Statistical and Classical Time Series Models
 These models are well-suited for datasets with clear temporal patterns and trends:
-##### Autoregressive Integrated Moving Average (ARIMA)
+### Autoregressive Integrated Moving Average (ARIMA)
 •	**Description**: A classical time series model used to predict CO₂ levels based on past values.<br>
 •	**Use Case**: Suitable for linear trends and seasonality in CO₂ emissions.<br><br>
 •	**Advantages**:
@@ -30,9 +30,9 @@ These models are well-suited for datasets with clear temporal patterns and trend
 - Provides interpretable coefficients.<br>
 •	**Challenges**: May not handle complex patterns or external factors well.
 
-#### Deep Learning Models
+### Deep Learning Models
 Deep learning methods are powerful for capturing complex patterns in large datasets.
-##### Long Short-Term Memory Networks (LSTMs)
+### Long Short-Term Memory Networks (LSTMs)
 • **Description**: A type of recurrent neural network (RNN) designed for sequential data, ideal for time series forecasting.<br>
 •	**Use Case**: Predicts future CO₂ levels by learning long-term dependencies in emission trends.<br>
 •	**Advantages**:
@@ -45,7 +45,7 @@ With the gathered information, we are ready to design our system.<br>
 This is a **time series forecasting** task.
 
 
-## Selecting a performance measure
+### Selecting a performance measure
 The next step is to choose a performance measure: <br>
 •	**Short-term predictions**: Use MAE, RMSE, or MASE for clear and interpretable results.<br>
 •	**Scale-independent metrics**: Use MAPE, sMAPE, or Theil’s U for datasets with varying scales or multiple regions.
