@@ -59,7 +59,7 @@ We'll focus on:
 ### Mean Absolute Error (MAE)
 
 •	**Description**: The average of absolute differences between actual and predicted values.<br><br>
-•	**Formula**: <br>
+•	**Formula**: <br><br>
 $$MAE  = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
 
 •	**Use Case**:
@@ -69,23 +69,25 @@ $$MAE  = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
 
 ### Mean Squared Error (MSE)
 •	**Description**: The average of squared differences between actual and predicted values.<br><br>
-•	**Formula**:<br>
+•	**Formula**:<br><br>
 $$MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+
 •	**Use Case**:
 - Penalizes large errors more heavily than MAE.
 - Useful for models where large prediction deviations are particularly undesirable.
 
 ### Root Mean Squared Error (RMSE)
 •	**Description**: The square root of MSE, representing the error in the same units as the original data.<br><br>
-•	**Formula**:<br>
+•	**Formula**:<br><br>
  $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+
  •	**Use Case**:
 - Highlights significant prediction errors.
 - Popular in time series forecasting due to interpretability.
 
 ### Mean Absolute Percentage Error (MAPE)
 •	**Description**: The average percentage error between actual and predicted values.<br><br>
-•	**Formula**: <br>
+•	**Formula**: <br><br>
 $$MAPE=\frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100 $$
 
 •	**Use Case**:
