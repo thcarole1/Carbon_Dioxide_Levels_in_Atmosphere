@@ -1,9 +1,10 @@
 # Basic libraries
 import pandas as pd
 import io
+import urllib.parse
 import zipfile
 from io import BytesIO
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, Query
 from fastapi.responses import FileResponse
 
 # Import from .py files
@@ -139,3 +140,93 @@ async def create_upload_file(file: UploadFile):
     return FileResponse("zip_buffer_file",
                         media_type="application/zip",
                         filename="co2_levels_prediction_data.zip")
+
+@app.post("/predict_csv")
+async def predict(csv_data: str = Query(..., description="URL-encoded CSV content")):
+    # URL-decode the incoming CSV content
+    decoded_csv = urllib.parse.unquote(csv_data)
+
+    # Wrap the decoded CSV content in a StringIO object so that pandas can read it as a file
+    csv_io = io.StringIO(decoded_csv)
+    try:
+        df = pd.read_csv(csv_io)
+    except Exception as e:
+        return {"error": "Failed to parse CSV", "detail": str(e)}
+
+     # # ******** Preprocessing **********
+    co2_levels = preprocess_data_api(df)
+    # ***********************************
+
+    #Parameters
+    window = 1 #Observation window
+
+    #Reload scaler
+    path_fitted_scaler = "data/processed_data/my_final_scaler.pkl"
+    scaler_reloaded = load_fitted_scaler_api(path_fitted_scaler)
+
+    #Reload fitted model
+    path_fitted_model = "data/processed_data/my_LSTM_model.pkl"
+    model_reloaded = load_fitted_model_api(path_fitted_model)
+
+    X_test_scaled, y_test_scaled, dates = prepare_test_data_api(co2_levels, window,scaler_reloaded)
+
+    # Make prediction (X_test_scaled)
+    predictions = predict_X_test_scaled_api(X_test_scaled, scaler_reloaded, model_reloaded, dates)
+
+    # Compute y_test (no scaling)
+    y_test = scaler_reloaded.inverse_transform(y_test_scaled)
+    y_test = pd.DataFrame(y_test, index=dates, columns=['test'])
+
+    # Create a ZIP archive in memory
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+        # Add Pandas dataframes as CSV
+        export_list = [y_test, predictions]
+        export_list_str = ['y_test', 'predictions']
+
+        for index, dataframe in enumerate(export_list):
+            csv_buffer = BytesIO()
+            dataframe.to_csv(csv_buffer, index=True)
+            csv_buffer.seek(0)
+            zip_file.writestr(f"{export_list_str[index]}.csv", csv_buffer.read())
+
+    zip_buffer.seek(0)  # Reset buffer cursor for reading
+
+    # Save the BytesIO to an actual file
+    with open("zip_buffer_file", "wb") as f:
+        f.write(zip_buffer.getvalue())
+
+    return FileResponse("zip_buffer_file",
+                        media_type="application/zip",
+                        filename="co2_levels_prediction_data.zip")
+
+
+
+# from fastapi import FastAPI, Query
+# import pandas as pd
+# import urllib.parse
+# import io
+
+# app = FastAPI()
+
+# @app.get("/predict")
+# async def predict(csv_data: str = Query(..., description="URL-encoded CSV content")):
+#     # URL-decode the incoming CSV content
+#     decoded_csv = urllib.parse.unquote(csv_data)
+
+#     # Wrap the decoded CSV content in a StringIO object so that pandas can read it as a file
+#     csv_io = io.StringIO(decoded_csv)
+#     try:
+#         df = pd.read_csv(csv_io)
+#     except Exception as e:
+#         return {"error": "Failed to parse CSV", "detail": str(e)}
+
+#     # Here you could add your prediction logic using the DataFrame 'df'
+#     # For demonstration, we'll just return the number of rows and columns
+#     result = {
+#         "message": "CSV received and parsed successfully",
+#         "num_rows": df.shape[0],
+#         "num_columns": df.shape[1],
+#         "columns": list(df.columns)
+#     }
+#     return result
