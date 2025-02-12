@@ -11,7 +11,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 
 # Create RNN model
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import EarlyStopping
@@ -109,14 +109,11 @@ def train_lstm_model_api(model, X, y):
     print("✅ LSTM model fitted.")
     return model
 
-def save_fitted_model_api(fitted_model):
+def save_fitted_model_api(fitted_model, path):
     '''
     Saving the best fitted model
     '''
-    path = "data/processed_data/my_LSTM_model.pkl"
-    # joblib.dump(fitted_model, path)
-    with open(path, 'wb') as file:
-        pickle.dump(fitted_model, file)
+    fitted_model.save(path,save_format="h5")
     print("✅ LSTM  fitted model has been saved.")
 
 def load_fitted_scaler_api(path_fitted_scaler):
@@ -133,6 +130,5 @@ def load_fitted_model_api(path_fitted_model):
     Reloading the best fitted model
     '''
     print("✅ LSTM  fitted model has been loaded.")
-    with open(path_fitted_model, 'rb') as file:
-        final_model_reloaded = pickle.load(file)
+    final_model_reloaded = load_model(path_fitted_model)
     return final_model_reloaded

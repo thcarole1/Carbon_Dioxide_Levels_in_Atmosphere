@@ -26,21 +26,21 @@ def predict_co2_level():
     X_train_scaled, y_train_scaled, scaler = prepare_train_data(train, window)
     X_test_scaled, y_test_scaled, dates = prepare_test_data(test, window, scaler)
 
-    # Let's save the fitted scaler
-    save_fitted_scaler(scaler)
-
     # Create LSTM model
     model = define_LSTM_model(window, feature)
 
     # Train the LSTM model
     fitted_model = train_lstm_model(model, X_train_scaled, y_train_scaled)
 
-    # Save fitted model
-    save_fitted_model(fitted_model)
-
     # Reloading phase
-    path_fitted_model = "data/processed_data/my_LSTM_model.pkl"
+    path_fitted_model = "data/processed_data/my_LSTM_model.h5"
     path_fitted_scaler = "data/processed_data/my_final_scaler.pkl"
+
+    # Let's save the fitted scaler
+    save_fitted_scaler(scaler, path_fitted_scaler)
+
+    # Save fitted model
+    save_fitted_model(fitted_model, path_fitted_model)
 
     model_reloaded = load_fitted_model(path_fitted_model)
     scaler_reloaded = load_fitted_scaler(path_fitted_scaler)
