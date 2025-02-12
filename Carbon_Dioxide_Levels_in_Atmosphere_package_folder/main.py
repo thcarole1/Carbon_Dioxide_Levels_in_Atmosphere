@@ -45,8 +45,8 @@ def predict_co2_level():
     model_reloaded = load_fitted_model(path_fitted_model)
     scaler_reloaded = load_fitted_scaler(path_fitted_scaler)
 
-    # Make prediction (single value)
-    prediction = predict_single_value(400, scaler_reloaded, model_reloaded)
+    # # Make prediction (single value)
+    # prediction = predict_single_value(400, scaler_reloaded, model_reloaded)
 
     # Make prediction (X_test_scaled)
     predictions_df = predict_X_test_scaled(X_test_scaled, scaler_reloaded, model_reloaded, dates)
