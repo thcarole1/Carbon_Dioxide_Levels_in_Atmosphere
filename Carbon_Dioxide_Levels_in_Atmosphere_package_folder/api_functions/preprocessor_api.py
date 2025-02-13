@@ -25,7 +25,8 @@ def drop_unsued_cols_api(df)-> pd.DataFrame:
     '''
     df.drop(columns=["Seasonally Adjusted CO2 (ppm)",
                          "Carbon Dioxide Fit (ppm)",
-                         "Seasonally Adjusted CO2 Fit (ppm)"], inplace=True, axis=1)
+                         "Seasonally Adjusted CO2 Fit (ppm)",
+                         "Unnamed: 0"], inplace=True, axis=1)
     print("✅ Unused colums have been dropped.")
     return df
 
@@ -49,7 +50,7 @@ def drop_head_missing_values_api(df:pd.DataFrame)-> pd.DataFrame:
     missing values (i.e nan values) at the head of the dataframe, if any
     '''
     for i in range(len(df)):
-        if math.isnan(df.head(1).values[0][0]) == True:
+        if math.isnan(df.head(1).values[0][0]):
             df.drop(index = df.head(1).index, inplace=True)
         else:
             break
@@ -62,7 +63,7 @@ def drop_tail_missing_values_api(df:pd.DataFrame)-> pd.DataFrame:
     values (i.e nan values) at the tail of the dataframe, if any
     '''
     for i in range(len(df)):
-        if math.isnan(df.tail(1).values[0][0]) == True:
+        if math.isnan(df.tail(1).values[0][0]):
             df.drop(index = df.tail(1).index, inplace=True)
         else:
             break
@@ -89,7 +90,6 @@ def preprocess_data_api(df:pd.DataFrame)-> pd.DataFrame:
     - interpolate
     Returns a preprocessed pandas dataframe.
     '''
-
     # Combine year and month into a new column as datetime
     df = manage_time_index_api(df)
 

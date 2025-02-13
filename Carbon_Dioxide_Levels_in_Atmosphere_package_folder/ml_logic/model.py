@@ -5,12 +5,13 @@ import pandas as pd
 
 # Saving/loading models
 import joblib
+import pickle
 
 # Scaling the data
 from sklearn.preprocessing import StandardScaler
 
 # Create RNN model
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import EarlyStopping
@@ -100,20 +101,19 @@ def train_lstm_model(model, X, y):
     print("✅ LSTM model fitted.")
     return model
 
-def save_fitted_model(fitted_model):
+def save_fitted_model(fitted_model, path):
     '''
     Saving the best fitted model
     '''
-    path = "data/processed_data/my_LSTM_model.pkl"
-    joblib.dump(fitted_model, path)
+    fitted_model.save(path,save_format="h5")
     print("✅ LSTM  fitted model has been saved.")
 
-def save_fitted_scaler(scaler):
+def save_fitted_scaler(scaler, path):
     '''
     Saving the scaler fitted on train data (if new values, fit the scaler before using the LSTM model)
     '''
-    path = "data/processed_data/my_final_scaler.pkl"
-    joblib.dump(scaler, path)
+    with open(path, 'wb') as file:
+        pickle.dump(scaler, file)
     print("✅ Fitted scaler has been saved.")
 
 def load_fitted_model(path_fitted_model):
@@ -121,11 +121,16 @@ def load_fitted_model(path_fitted_model):
     Reloading the best fitted model
     '''
     print("✅ LSTM  fitted model has been loaded.")
-    return joblib.load(path_fitted_model)
+    # with open(path_fitted_model, 'rb') as file:
+    #     final_model_reloaded = pickle.load(file)
+    final_model_reloaded = load_model(path_fitted_model)
+    return final_model_reloaded
 
 def load_fitted_scaler(path_fitted_scaler):
     '''
     Reloading the saved scaler
     '''
+    with open(path_fitted_scaler, 'rb') as file:
+        final_scaler_reloaded = pickle.load(file)
     print("✅ Fitted scaler has been loaded.")
-    return joblib.load(path_fitted_scaler)
+    return final_scaler_reloaded
