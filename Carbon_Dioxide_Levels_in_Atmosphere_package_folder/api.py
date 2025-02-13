@@ -143,7 +143,6 @@ async def create_upload_file(file: UploadFile):
 
 @app.get("/predict_csv")
 async def predict(csv_data: str = Query(..., description="URL-encoded CSV content")):
-
     # URL-decode the incoming CSV content
     decoded_csv = urllib.parse.unquote(csv_data)
 
